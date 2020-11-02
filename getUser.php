@@ -9,7 +9,9 @@
 		die();
 	}
 
-	$sql = "SELECT * FROM user";
+	
+
+	$sql = "SELECT * FROM user Where email='".$_POST['email']."' and password ='" .$_POST['password']."'";
 	$result = $con->query($sql);
 	$array = array();
 

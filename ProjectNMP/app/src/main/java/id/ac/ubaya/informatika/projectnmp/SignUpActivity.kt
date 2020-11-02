@@ -1,8 +1,10 @@
 package id.ac.ubaya.informatika.projectnmp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -14,26 +16,33 @@ class SignUpActivity : AppCompatActivity() {
 
 
         btnSignup.setOnClickListener {
-            var q = Volley.newRequestQueue(this)
-            val url = "http://10.0.2.2/nmp/adduser.php"
-            var stringRequest = object: StringRequest(com.android.volley.Request.Method.POST, url,
-                {
-                    Log.d("insert",it)
-                },
-                {
-                    Log.d("insert",it.message.toString())
+            if(txtPassword.text.toString() == txtRepeatPass.text.toString())
+            {
+                var q = Volley.newRequestQueue(this)
+                val url = "http://10.0.2.2/nmp/adduser.php"
+                var stringRequest = object: StringRequest(com.android.volley.Request.Method.POST, url,
+                    {
+                        Log.d("insert",it)
+                    },
+                    {
+                        Log.d("insert",it.message.toString())
+                    }
+                ){
+                    override  fun  getParams(): MutableMap<String,String>{
+                        var params = HashMap<String,String>()
+                        params.put("email",txtEmail.text.toString())
+                        params.put("password",txtPassword.text.toString())
+                        params.put("nama",txtNama.text.toString())
+                        return  params
+                    }
                 }
-            ){
-                override  fun  getParams(): MutableMap<String,String>{
-                    var params = HashMap<String,String>()
-                    params.put("email",txtEmail.text.toString())
-                    params.put("password",txtPassword.text.toString())
-                    params.put("nama",txtNama.text.toString())
-                    return  params
-                }
+                q.add(stringRequest)
+                val intent = Intent(this,LoginActivity::class.java)
+                startActivity(intent)
             }
-            q.add(stringRequest)
-            finish()
+            else{
+                Toast.makeText(this, "Password tidak sama", Toast.LENGTH_SHORT).show()
+            }
 
         }
     }

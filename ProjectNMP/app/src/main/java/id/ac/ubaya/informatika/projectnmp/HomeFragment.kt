@@ -1,10 +1,16 @@
 package id.ac.ubaya.informatika.projectnmp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +33,25 @@ class HomeFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        val q = Volley.newRequestQueue(activity)
+        val url = "http://10.0.2.2/music/getproduct.php"
+        var stringRequest = StringRequest(
+            Request.Method.POST,
+            url,
+            Response.Listener<String> {
+                Log.d("apiresult", it)
+                val obj = JSONObject(it)
+                if(obj.getString("result") == "OK")
+                {
+
+                }
+            },
+            Response.ErrorListener {
+                Log.d("apiresult", it.message.toString())
+            }
+        )
+        q.add(stringRequest)
     }
 
     override fun onCreateView(
@@ -36,6 +61,8 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
+
+
 
     companion object {
         /**

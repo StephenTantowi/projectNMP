@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -26,6 +28,8 @@ class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    var products:ArrayList<Product> = ArrayList()
+    var v:View ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,20 +39,34 @@ class HomeFragment : Fragment() {
         }
 
         val q = Volley.newRequestQueue(activity)
-        val url = "http://10.0.2.2/music/getproduct.php"
+        val url = "http://ubaya.prototipe.net/nmp160418024/getProduct.php"
         var stringRequest = StringRequest(
             Request.Method.POST,
             url,
-            Response.Listener<String> {
-                Log.d("apiresult", it)
+            {
                 val obj = JSONObject(it)
                 if(obj.getString("result") == "OK")
                 {
+                    val data = obj.getJSONArray("data")
 
+                    for(i in 0 until data.length())
+                    {
+                        with(data.getJSONObject(i)){
+                            val product = Product(getInt("idproduct"),
+                                getString("judul"),
+                                getInt("harga"),
+                                getString("deskripsi"),
+                                getString("gambar"),
+                                getString("nama"))
+                                products.add(product)
+                        }
+                    }
+                    updateList()
+                    Log.d("produk",products.toString())
                 }
             },
-            Response.ErrorListener {
-                Log.d("apiresult", it.message.toString())
+            {
+                Log.d("produk", it.message.toString())
             }
         )
         q.add(stringRequest)
@@ -82,5 +100,13 @@ class HomeFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    fun updateList(){
+        val lm: LinearLayoutManager = LinearLayoutManager(activity)
+        var recylerView = v?.findViewById<RecyclerView>(R.id.productView)
+        recylerView?.layoutManager = lm
+        recylerView?.setHasFixedSize(true)
+        recylerView?.adapter = productAdapter(products, activity!!.applicationContext)
     }
 }

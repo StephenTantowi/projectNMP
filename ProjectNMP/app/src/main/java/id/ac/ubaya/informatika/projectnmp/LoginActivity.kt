@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
 
         btnLogin.setOnClickListener {
             var q = Volley.newRequestQueue(this)
-            val url = "http://10.0.2.2/nmp/getUser.php"
+            val url = "http://ubaya.prototipe.net/nmp160418024/getUser.php"
             var stringRequest = object: StringRequest(com.android.volley.Request.Method.POST, url,
                 {
                     Log.d("login",it)

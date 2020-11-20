@@ -19,7 +19,7 @@ class SignUpActivity : AppCompatActivity() {
             if(txtPassword.text.toString() == txtRepeatPass.text.toString())
             {
                 var q = Volley.newRequestQueue(this)
-                val url = "http://10.0.2.2/nmp/adduser.php"
+                val url = "http://ubaya.prototipe.net/nmp160418024/addUser.php"
                 var stringRequest = object: StringRequest(com.android.volley.Request.Method.POST, url,
                     {
                         Log.d("insert",it)

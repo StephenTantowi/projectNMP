@@ -9,7 +9,7 @@
 		die();
 	}
 
-	$sql = "SELECT * FROM product";
+	$sql = "SELECT product.*, kategori.nama FROM product inner join kategori on product.idkategori = kategori.idkategori";
 	$result = $c->query($sql);
 	$array = array();
 

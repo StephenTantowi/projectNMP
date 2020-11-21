@@ -20,7 +20,7 @@ if($_POST['email'] && $_POST['password'] && $_POST['nama'] && $_POST['iduser']) 
 
 		$arr = array("result" => "OK", 
 			"sql"	=> $sql,
-			"message" => "user added");
+			"message" => "user updated");
 		echo json_encode($arr);
 	} else {
 		$arr = array("result" => "ERROR", 

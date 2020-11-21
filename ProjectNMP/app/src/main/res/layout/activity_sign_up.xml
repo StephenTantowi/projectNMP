@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtNama" />
 
     <EditText
-        android:id="@+id/txtPassword"
+        android:id="@+id/txtOldPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -67,7 +67,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
     <EditText
-        android:id="@+id/txtRepeatPass"
+        android:id="@+id/txtNewPass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -78,7 +78,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/txtOldPassword" />
 
     <Button
         android:id="@+id/btnSignup"
@@ -91,5 +91,5 @@
         android:text="Sign Up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRepeatPass" />
+        app:layout_constraintTop_toBottomOf="@+id/txtNewPass" />
 </androidx.constraintlayout.widget.ConstraintLayout>

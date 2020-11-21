@@ -16,7 +16,7 @@ class SignUpActivity : AppCompatActivity() {
 
 
         btnSignup.setOnClickListener {
-            if(txtPassword.text.toString() == txtRepeatPass.text.toString())
+            if(txtOldPassword.text.toString() == txtNewPass.text.toString())
             {
                 var q = Volley.newRequestQueue(this)
                 val url = "http://ubaya.prototipe.net/nmp160418024/addUser.php"
@@ -31,7 +31,7 @@ class SignUpActivity : AppCompatActivity() {
                     override  fun  getParams(): MutableMap<String,String>{
                         var params = HashMap<String,String>()
                         params.put("email",txtEmail.text.toString())
-                        params.put("password",txtPassword.text.toString())
+                        params.put("password",txtOldPassword.text.toString())
                         params.put("nama",txtNama.text.toString())
                         return  params
                     }

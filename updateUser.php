@@ -35,6 +35,18 @@
 			"message" => "user updated");
 		echo json_encode($arr);
 	}
+	elseif ($_POST['password'] && $_POST["iduser"]) 
+	{
+		$iduser = $_POST['iduser'];
+		$password = $_POST['password'];
+		$sql = "UPDATE user SET pasword = '$password' WHERE iduser = $iduser";
+		$con->query($sql);
+
+		$arr = array("result" => "OK", 
+			"sql"	=> $sql,
+			"message" => "user updated");
+		echo json_encode($arr);
+	}
 	else
 	{
 		$arr = array("result" => "ERROR", 

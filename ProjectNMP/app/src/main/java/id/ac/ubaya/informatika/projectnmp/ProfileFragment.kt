@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.Toast
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_login.*
@@ -59,7 +60,6 @@ class ProfileFragment : Fragment() {
         nama?.setText(Global.users[0].nama)
         email?.setText(Global.users[0].email)
         button?.setOnClickListener {
-            Toast.makeText(context, "Halo", Toast.LENGTH_LONG).show()
 //            if(newPass == repeatPass)
 //            {
                 var q = Volley.newRequestQueue(context)
@@ -70,6 +70,8 @@ class ProfileFragment : Fragment() {
                         var obj = JSONObject(it)
                         if(obj.getString("result") == "OK")
                         {
+                            val data = obj.getString("message")
+                            Snackbar.make(view!!.rootView, data, Snackbar.LENGTH_LONG).show()
                         }
                     },
                     {

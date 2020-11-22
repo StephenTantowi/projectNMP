@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import id.ac.ubaya.informatika.projectnmp.Global.users
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.txtEmail
 import kotlinx.android.synthetic.main.activity_login.txtOldPassword
@@ -26,6 +27,12 @@ class LoginActivity : AppCompatActivity() {
                     if(obj.getString("result") == "OK")
                     {
                         val data = obj.getJSONArray("data")
+                        val user = data.getJSONObject(0)
+                        val users = User(user.getInt("iduser"), user.getString("nama"),
+                                        user.getString("email"), user.getString("password"))
+                        Global.users.add(users)
+                        Log.d("tesuser", Global.users.toString())
+
                         val intent = Intent(this,MainActivity::class.java)
                         startActivity(intent)
                     }

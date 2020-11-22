@@ -1,15 +1,29 @@
 package id.ac.ubaya.informatika.projectnmp
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.fragment_profile.txtEmail
+import kotlinx.android.synthetic.main.fragment_profile.txtOldPassword
+import org.json.JSONObject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+var v: View ?= null
 
 /**
  * A simple [Fragment] subclass.
@@ -34,7 +48,47 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment s
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        v = inflater.inflate(R.layout.fragment_profile, container, false)
+        var nama = v?.findViewById<TextInputEditText>(R.id.txtNama)
+        var email = v?.findViewById<TextInputEditText>(R.id.txtEmail)
+        var oldPass = v?.findViewById<TextInputEditText>(R.id.txtOldPassword)
+        var newPass = v?.findViewById<TextInputEditText>(R.id.txtNewPass)
+        var repeatPass = v?.findViewById<TextInputEditText>(R.id.txtRepeatNewPass)
+        var button = v?.findViewById<Button>(R.id.btnUpdate)
+
+        nama?.setText(Global.users[0].nama)
+        email?.setText(Global.users[0].email)
+        button?.setOnClickListener {
+            Toast.makeText(context, "Halo", Toast.LENGTH_LONG).show()
+//            if(newPass == repeatPass)
+//            {
+                var q = Volley.newRequestQueue(context)
+                val url = "http://ubaya.prototipe.net/nmp160418024/updateUser.php"
+                var stringRequest = object: StringRequest(com.android.volley.Request.Method.POST, url,
+                    {
+                        Log.d("updateuser",it)
+                        var obj = JSONObject(it)
+                        if(obj.getString("result") == "OK")
+                        {
+                        }
+                    },
+                    {
+                        Log.d("updateuser",it.message.toString())
+                    }
+                ){
+                    override  fun  getParams(): MutableMap<String,String>{
+                        var params = HashMap<String,String>()
+                        params.put("iduser", Global.users[0].id.toString())
+                        params.put("nama", nama?.text.toString())
+                        params.put("oldPassword", oldPass?.text.toString())
+                        params.put("newPassword", newPass?.text.toString())
+                        return  params
+                    }
+                }
+                q.add(stringRequest)
+            }
+        //}
+        return v
     }
 
     companion object {

@@ -10,41 +10,54 @@
 	}
 
 
-	if($_POST['password'] && $_POST['nama'] && $_POST["iduser"]) 
-	{
-		$iduser = $_POST['iduser'];
-		$password = $_POST['password'];
-		$nama = $_POST['nama'];
-		$sql = "UPDATE user SET nama = '$nama', password = '$password' WHERE iduser = $iduser";
-		$con->query($sql);
-
-		$arr = array("result" => "OK", 
-			"sql"	=> $sql,
-			"message" => "user updated");
-		echo json_encode($arr);
-	} 
-	elseif ($_POST['nama'] && $_POST["iduser"]) 
+	if("" == trim($_POST['oldPassword']) && "" == trim($_POST['newPassword']) && $_POST["iduser"] && $_POST['nama']) 
 	{
 		$iduser = $_POST['iduser'];
 		$nama = $_POST['nama'];
+		
 		$sql = "UPDATE user SET nama = '$nama' WHERE iduser = $iduser";
 		$con->query($sql);
 
 		$arr = array("result" => "OK", 
 			"sql"	=> $sql,
-			"message" => "user updated");
+			"message" => "nama updated");
 		echo json_encode($arr);
+	} 
+	elseif ("" == trim($_POST['nama']) && $_POST["iduser"] && $_POST['oldPassword'] && $_POST['newPassword']) 
+	{
+		$iduser = $_POST['iduser'];
+		$oldPassword = $_POST['oldPassword'];
+		$newPassword = $_POST['newPassword'];
+
+		if($oldPassword == $newPassword)
+		{
+			$sql = "UPDATE user SET password = '$password' WHERE iduser = $iduser";
+			$con->query($sql);
+
+			$arr = array("result" => "OK", 
+			"sql"	=> $sql,
+			"message" => "password updated");
+			echo json_encode($arr);
+		}
+		else
+		{
+			$arr = array("result" => "ERROR", 
+			"message" => "password tidak sama");
+			echo json_encode($arr);
+		}
+		
 	}
-	elseif ($_POST['password'] && $_POST["iduser"]) 
+	elseif ($_POST['password'] && $_POST["iduser"] && $_POST['nama']) 
 	{
 		$iduser = $_POST['iduser'];
 		$password = $_POST['password'];
-		$sql = "UPDATE user SET pasword = '$password' WHERE iduser = $iduser";
+		$nama = $_POST['nama'];
+		$sql = "UPDATE user SET nama = '$nama', pasword = '$password' WHERE iduser = $iduser";
 		$con->query($sql);
 
 		$arr = array("result" => "OK", 
 			"sql"	=> $sql,
-			"message" => "user updated");
+			"message" => "nama & password updated");
 		echo json_encode($arr);
 	}
 	else

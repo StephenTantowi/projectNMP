@@ -9,7 +9,11 @@
 		die();
 	}
 
-	$sqlCekPass = "SELECT password FROM user WHERE iduser = $_POST['iduser']";
+	$test = $_POST["iduser"];
+	$sqlCekPass = "SELECT password FROM user WHERE iduser = $test";
+	$hasil = $con->query($sqlCekPass);
+	$hasilobj = mysqli_fetch_object($hasil);
+	$pass = $hasilobj->password;
 	
 
 	if("" == trim($_POST['oldPassword']) && "" == trim($_POST['newPassword']) && $_POST["iduser"] && $_POST['nama']) 
@@ -31,7 +35,7 @@
 		$oldPassword = $_POST['oldPassword'];
 		$newPassword = $_POST['newPassword'];
 
-		if($oldPassword == $sqlCekPass)
+		if($oldPassword == $pass)
 		{
 			$sql = "UPDATE user SET password = '$newPassword' WHERE iduser = $iduser";
 			$con->query($sql);
@@ -56,7 +60,7 @@
 		$newPassword = $_POST['newPassword'];
 		$nama = $_POST['nama'];
 
-		if($oldPassword == $sqlCekPass)
+		if($oldPassword == $pass)
 		{
 			$sql = "UPDATE user SET nama = '$nama', pasword = '$newPassword' WHERE iduser = $iduser";
 			$con->query($sql);

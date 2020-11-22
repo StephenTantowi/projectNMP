@@ -31,7 +31,7 @@
 
 		if($oldPassword == $newPassword)
 		{
-			$sql = "UPDATE user SET password = '$password' WHERE iduser = $iduser";
+			$sql = "UPDATE user SET password = '$newPassword' WHERE iduser = $iduser";
 			$con->query($sql);
 
 			$arr = array("result" => "OK", 
@@ -47,18 +47,29 @@
 		}
 		
 	}
-	elseif ($_POST['password'] && $_POST["iduser"] && $_POST['nama']) 
+	elseif ($_POST['newPassword'] && $_POST['oldPassword'] && $_POST["iduser"] && $_POST['nama']) 
 	{
 		$iduser = $_POST['iduser'];
-		$password = $_POST['password'];
+		$oldPassword = $_POST['oldPassword'];
+		$newPassword = $_POST['newPassword'];
 		$nama = $_POST['nama'];
-		$sql = "UPDATE user SET nama = '$nama', pasword = '$password' WHERE iduser = $iduser";
-		$con->query($sql);
 
-		$arr = array("result" => "OK", 
-			"sql"	=> $sql,
-			"message" => "nama & password updated");
-		echo json_encode($arr);
+		if($oldPassword == $newPassword)
+		{
+			$sql = "UPDATE user SET nama = '$nama', pasword = '$newPassword' WHERE iduser = $iduser";
+			$con->query($sql);
+
+			$arr = array("result" => "OK", 
+				"sql"	=> $sql,
+				"message" => "nama & password updated");
+			echo json_encode($arr);
+		}
+		else
+		{
+			$arr = array("result" => "ERROR", 
+			"message" => "password tidak sama");
+			echo json_encode($arr);
+		}
 	}
 	else
 	{

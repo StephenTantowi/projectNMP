@@ -70,9 +70,6 @@ class ProfileFragment : Fragment() {
                         var obj = JSONObject(it)
                         if(obj.getString("result") == "OK")
                         {
-                            val data = obj.getJSONArray("data")
-                            val user = data.getJSONObject(0)
-                            nama?.setText(user.getString("nama"))
                         }
                     },
                     {
@@ -81,7 +78,7 @@ class ProfileFragment : Fragment() {
                 ){
                     override  fun  getParams(): MutableMap<String,String>{
                         var params = HashMap<String,String>()
-                        params.put("id", Global.users[0].id.toString())
+                        params.put("iduser", Global.users[0].id.toString())
                         params.put("nama", nama?.text.toString())
                         params.put("oldPassword", oldPass?.text.toString())
                         params.put("newPassword", newPass?.text.toString())

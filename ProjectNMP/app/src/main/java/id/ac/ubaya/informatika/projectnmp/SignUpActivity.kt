@@ -32,7 +32,7 @@ class SignUpActivity : AppCompatActivity() {
                         var params = HashMap<String,String>()
                         params.put("email",txtEmail.text.toString())
                         params.put("password",txtOldPassword.text.toString())
-                        params.put("nama",txtNama.text.toString())
+                        params.put("nama",txtNamaP.text.toString())
                         return  params
                     }
                 }

@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txtNama"
+        android:id="@+id/txtNamaP"
         style="@android:style/Widget.AutoCompleteTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNama" />
+        app:layout_constraintTop_toBottomOf="@+id/txtNamaP" />
 
     <EditText
         android:id="@+id/txtOldPassword"

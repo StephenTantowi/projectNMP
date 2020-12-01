@@ -1,6 +1,5 @@
 package id.ac.ubaya.informatika.projectnmp
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,16 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.fragment_profile.txtEmail
-import kotlinx.android.synthetic.main.fragment_profile.txtOldPassword
 import org.json.JSONObject
 
 // TODO: Rename parameter arguments, choose names that match
@@ -50,7 +43,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment s
         v = inflater.inflate(R.layout.fragment_profile, container, false)
-        var nama = v?.findViewById<TextInputEditText>(R.id.txtNama)
+        var nama = v?.findViewById<TextInputEditText>(R.id.txtNamaP)
         var email = v?.findViewById<TextInputEditText>(R.id.txtEmail)
         var oldPass = v?.findViewById<TextInputEditText>(R.id.txtOldPassword)
         var newPass = v?.findViewById<TextInputEditText>(R.id.txtNewPass)

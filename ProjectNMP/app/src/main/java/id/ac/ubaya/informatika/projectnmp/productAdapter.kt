@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -24,7 +23,7 @@ class productAdapter(val products:ArrayList<Product>,val ctx:Context): RecyclerV
     override fun onBindViewHolder(holder: productAdapter.ProductViewHolder, position: Int) {
         val url = products[position].gambar
         Picasso.get().load(url).into(holder.v.imgProduct)
-        holder.v.txtNama.text = products[position].nama
+        holder.v.txtNamaP.text = products[position].nama
         holder.v.txtHarga.text = products[position].harga.toString()
 
         holder.v.imgProduct.setOnClickListener {

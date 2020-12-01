@@ -1,6 +1,5 @@
 package id.ac.ubaya.informatika.projectnmp
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,9 +7,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.activity_detail.txtNama
-import kotlinx.android.synthetic.main.activity_sign_up.*
-import kotlinx.android.synthetic.main.product_layout.view.*
+import kotlinx.android.synthetic.main.activity_detail.txtNamaP
 
 class DetailActivity : AppCompatActivity() {
 
@@ -19,7 +16,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         var idproduk = intent.getIntExtra("idproduct",0)
-        txtNama.text = intent.getStringExtra("nama").toString()
+        txtNamaP.text = intent.getStringExtra("nama").toString()
         txtDetail.text = intent.getStringExtra("deskripsi").toString()
         txtHarga.text = intent.getIntExtra("harga",0).toString()
         txtKategori.text = intent.getStringExtra("kategori").toString()

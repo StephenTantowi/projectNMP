@@ -2,11 +2,14 @@ package id.ac.ubaya.informatika.projectnmp
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.product_layout.view.*
 
@@ -27,12 +30,36 @@ class productAdapter(val products:ArrayList<Product>,val ctx:Context): RecyclerV
         holder.v.imgProduct.setOnClickListener {
             val intent = Intent(ctx,DetailActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("idproduct",products[position].id)
             intent.putExtra("nama",products[position].nama)
             intent.putExtra("harga",products[position].harga)
             intent.putExtra("deskripsi",products[position].deskripsi)
             intent.putExtra("gambar",products[position].gambar)
             intent.putExtra("kategori",products[position].kategori)
             ctx.startActivity(intent)
+        }
+        var iduser = Global.users[0].id
+        var idproduk = products[position].id
+        holder.v.btnAddCart.setOnClickListener {
+            var q = Volley.newRequestQueue(ctx)
+            val url = "http://ubaya.prototipe.net/nmp160418024/addKeranjangSementara.php"
+            var stringRequest = object: StringRequest(com.android.volley.Request.Method.POST, url,
+                {
+                    Log.d("insert",it)
+                },
+                {
+                    Log.d("insert",it.message.toString())
+                }
+            ){
+                override  fun  getParams(): MutableMap<String,String>{
+                    var params = HashMap<String,String>()
+                    params.put("iduser",iduser.toString())
+                    params.put("idproduct",idproduk.toString())
+                    params.put("jumlah",1.toString())
+                    return  params
+                }
+            }
+            q.add(stringRequest)
         }
     }
 

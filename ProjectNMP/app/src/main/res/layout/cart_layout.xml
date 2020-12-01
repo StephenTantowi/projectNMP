@@ -75,12 +75,23 @@
                 android:id="@+id/btnMinus"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="32dp"
                 android:layout_marginBottom="8dp"
                 android:text="-"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/txtQuanatity"
+                app:layout_constraintTop_toBottomOf="@+id/txtHarga"
+                app:layout_constraintVertical_bias="0.545" />
+
+            <TextView
+                android:id="@+id/txtQuanatity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:text="1"
                 app:layout_constraintEnd_toStartOf="@+id/btnPlus"
                 app:layout_constraintTop_toBottomOf="@+id/txtHarga" />
         </androidx.constraintlayout.widget.ConstraintLayout>

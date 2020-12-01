@@ -40,6 +40,7 @@ class CartFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        carts.clear()
         updateList()
         val q = Volley.newRequestQueue(activity)
         val url = "http://ubaya.prototipe.net/nmp160418024/getKeranjangSementara.php"

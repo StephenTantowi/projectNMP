@@ -6,11 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import kotlinx.android.synthetic.main.fragment_cart.view.*
 import org.json.JSONObject
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,6 +32,7 @@ class CartFragment : Fragment() {
     private var param2: String? = null
     var carts:ArrayList<cart> = ArrayList()
     var v:View ?= null
+    var grandTotal = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,10 +67,14 @@ class CartFragment : Fragment() {
                                 getString("gambar"),
                                 getString("judul"))
                             carts.add(product)
+                            grandTotal = getInt("GrandTotal")
                         }
                     }
+                    var gt = v?.findViewById<TextView>(R.id.txtGrandtotal)
+                    gt?.text = "Grandtotal : " + grandTotal.toString()
                     updateList()
                     Log.d("cart",carts.toString())
+                    Log.d("cart",grandTotal.toString())
                 }
             },
             {
@@ -88,6 +96,27 @@ class CartFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_cart, container, false)
+        var button = v?.findViewById<Button>(R.id.btnCheckout)
+
+        button?.setOnClickListener {
+            var q = Volley.newRequestQueue(context)
+            val url = "http://ubaya.prototipe.net/nmp160418024/addHistory.php"
+            var stringRequest = object: StringRequest(com.android.volley.Request.Method.POST, url,
+                {
+                    Log.d("update",it)
+                },
+                {
+                    Log.d("update",it.message.toString())
+                }
+            ){
+                override  fun  getParams(): MutableMap<String,String>{
+                    var params = HashMap<String,String>()
+                    params.put("iduser",Global.users[0].id.toString())
+                    return  params
+                }
+            }
+            q.add(stringRequest)
+        }
         return v
     }
 

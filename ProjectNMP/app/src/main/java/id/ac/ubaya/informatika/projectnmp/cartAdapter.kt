@@ -10,7 +10,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.cart_layout.view.*
-
+import kotlinx.android.synthetic.main.fragment_cart.view.*
 
 
 class cartAdapter(val carts:ArrayList<cart>,val ctx: Context): RecyclerView.Adapter<cartAdapter.CartViewHolder>() {

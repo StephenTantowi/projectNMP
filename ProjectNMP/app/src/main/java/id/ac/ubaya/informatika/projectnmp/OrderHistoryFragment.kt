@@ -37,6 +37,13 @@ class OrderHistoryFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        histories.clear()
+        updateList()
         val q = Volley.newRequestQueue(activity)
         val url = "http://ubaya.prototipe.net/nmp160418024/getHistory.php"
         var stringRequest = object : StringRequest(

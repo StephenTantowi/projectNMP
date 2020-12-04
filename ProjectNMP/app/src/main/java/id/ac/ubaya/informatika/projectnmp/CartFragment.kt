@@ -97,6 +97,7 @@ class CartFragment : Fragment() {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_cart, container, false)
         var button = v?.findViewById<Button>(R.id.btnCheckout)
+        var gt = v?.findViewById<TextView>(R.id.txtGrandtotal)
 
         button?.setOnClickListener {
             var q = Volley.newRequestQueue(context)
@@ -104,6 +105,8 @@ class CartFragment : Fragment() {
             var stringRequest = object: StringRequest(com.android.volley.Request.Method.POST, url,
                 {
                     Log.d("update",it)
+                    onResume()
+                    gt?.text = "Grand Total : 0"
                 },
                 {
                     Log.d("update",it.message.toString())

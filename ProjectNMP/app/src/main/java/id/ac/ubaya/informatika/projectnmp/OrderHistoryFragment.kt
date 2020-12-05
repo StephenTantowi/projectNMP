@@ -29,6 +29,7 @@ class OrderHistoryFragment : Fragment() {
     private var param2: String? = null
     var histories:ArrayList<History> = ArrayList()
     var v:View ?= null
+    var ac = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

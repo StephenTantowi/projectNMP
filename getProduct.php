@@ -1,6 +1,6 @@
 <?php 
 	error_reporting(E_ERROR | E_PARSE);
-	$con = new mysqli("localhost", "root", "","projectnmp");
+	$con = new mysqli("localhost", "nmp160418024", "ubaya","nmp160418024");
 
 	if($con->connect_errno){
 		$arr = array("result" => "ERROR", 
@@ -10,7 +10,7 @@
 	}
 
 	$sql = "SELECT product.*, kategori.nama FROM product inner join kategori on product.idkategori = kategori.idkategori";
-	$result = $c->query($sql);
+	$result = $con->query($sql);
 	$array = array();
 
 	if ($result->num_rows > 0) 

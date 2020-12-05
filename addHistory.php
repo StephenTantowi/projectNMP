@@ -15,10 +15,16 @@
 	{
 		$iduser = $_POST['iduser'];
 
-		//Copy data tabel keranjangsementara -> history
+		//GetOrderID
+		$order = "NMP/".date("dmy", strtotime("now"))."/$iduser/". strtotime("now");
 
-		$sql1 = "INSERT INTO history(iduser, idproduct, jumlah, totalHarga) 
-				SELECT iduser, idproduct, jumlah, totalHarga FROM keranjangsementara WHERE iduser = '$iduser'";
+		//Update orderId keranjangsementara
+		$sql = "UPDATE keranjangsementara SET orderId = '$order' WHERE iduser = '$iduser'";
+		$c->query($sql);
+
+		//Copy data tabel keranjangsementara -> history
+		$sql1 = "INSERT INTO history(iduser, idproduct, jumlah, totalHarga, orderId, grandTotal) 
+				SELECT iduser, idproduct, jumlah, totalHarga, orderID, (SELECT SUM(totalHarga) FROM keranjangsementara WHERE iduser = '$iduser') as GrandTotal FROM keranjangsementara WHERE iduser = '$iduser'";
 
 		$c->query($sql1);
 		$arr1 = array("result" => "OK", 

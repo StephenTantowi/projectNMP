@@ -12,7 +12,7 @@ class HistoryDetailAdapter(val historiedetails:ArrayList<HistoryDetail>,val ctx:
     class HistoryDetailViewHolder(val v: View) : RecyclerView.ViewHolder(v)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryDetailViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
+        val inflater = LayoutInflater.from(ctx)
         var v = inflater.inflate(R.layout.history_layout, parent, false)
         return HistoryDetailViewHolder(v)
     }

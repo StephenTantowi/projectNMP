@@ -1,8 +1,11 @@
 package id.ac.ubaya.informatika.projectnmp
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -13,10 +16,21 @@ import org.json.JSONObject
 
 class DetailHistory : AppCompatActivity() {
     var histories:ArrayList<HistoryDetail> = ArrayList()
+    var v: View?= null
+
+    override fun onCreateView(
+        parent: View?,
+        name: String,
+        context: Context,
+        attrs: AttributeSet
+    ): View? {
+        return super.onCreateView(parent, name, context, attrs)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_history)
+
 
         var iduser = intent.getIntExtra("idUser",0)
         var orderid = intent.getStringExtra("orderId")
@@ -66,7 +80,7 @@ class DetailHistory : AppCompatActivity() {
     fun updateList()
     {
         val lm: LinearLayoutManager = LinearLayoutManager(this)
-        var recylerView = v?.findViewById<RecyclerView>(R.id.detailHistoryView)
+        var recylerView = findViewById<RecyclerView>(R.id.detailHistoryView)
         recylerView?.layoutManager = lm
         recylerView?.setHasFixedSize(true)
         recylerView?.adapter = HistoryDetailAdapter(histories, this)

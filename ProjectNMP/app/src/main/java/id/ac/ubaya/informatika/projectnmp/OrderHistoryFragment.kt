@@ -46,7 +46,7 @@ class OrderHistoryFragment : Fragment() {
         histories.clear()
         updateList()
         val q = Volley.newRequestQueue(activity)
-        val url = "http://ubaya.prototipe.net/nmp160418024/getHistory.php"
+        val url = "http://ubaya.prototipe.net/nmp160418024/getHistoryUser.php"
         var stringRequest = object : StringRequest(
             Request.Method.POST,
             url,
@@ -60,12 +60,9 @@ class OrderHistoryFragment : Fragment() {
                     {
                         with(data.getJSONObject(i)){
                             val history = History(getInt("iduser"),
-                                getInt("idproduct"),
-                                getInt("jumlah"),
-                                getInt("harga"),
-                                getString("gambar"),
-                                getString("judul"),
-                                getInt("totalharga"))
+                                getString("orderId"),
+                                getString("tanggalTransaksi"),
+                                getInt("grandTotal"))
                             histories.add(history)
                         }
                     }

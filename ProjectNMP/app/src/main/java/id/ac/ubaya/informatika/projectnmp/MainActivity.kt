@@ -13,6 +13,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportActionBar?.title = "Radiohead"
+
         fragments.add(HomeFragment())
         fragments.add(CartFragment())
         fragments.add(OrderHistoryFragment())

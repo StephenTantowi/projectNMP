@@ -37,6 +37,17 @@ class productAdapter(val products:ArrayList<Product>,val ctx:Context): RecyclerV
             intent.putExtra("kategori",products[position].kategori)
             ctx.startActivity(intent)
         }
+        holder.v.btnDetailProduk.setOnClickListener {
+            val intent = Intent(ctx,DetailActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("idproduct",products[position].id)
+            intent.putExtra("nama",products[position].nama)
+            intent.putExtra("harga",products[position].harga)
+            intent.putExtra("deskripsi",products[position].deskripsi)
+            intent.putExtra("gambar",products[position].gambar)
+            intent.putExtra("kategori",products[position].kategori)
+            ctx.startActivity(intent)
+        }
         var iduser = Global.users[0].id
         var idproduk = products[position].id
         holder.v.btnAddCart.setOnClickListener {

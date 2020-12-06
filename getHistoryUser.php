@@ -1,8 +1,8 @@
 <?php 
 	error_reporting(E_ERROR | E_PARSE);
-	$c = new mysqli("localhost", "nmp160418024", "ubaya", "nmp160418024");
+	$con = new mysqli("localhost", "nmp160418024", "ubaya","nmp160418024");
 
-	if($c->connect_errno){
+	if($con->connect_errno){
 		$arr = array("result" => "ERROR", 
 					 "message" => "Failed to Connect");
 		echo json_encode($arr);
@@ -12,8 +12,9 @@
 	if($_POST['iduser'])
 	{
 		$iduser = $_POST['iduser'];
-		$sql = "SELECT ks.*, p.*,(SELECT SUM(totalHarga) FROM keranjangsementara WHERE iduser = '$iduser') as GrandTotal FROM keranjangsementara ks INNER JOIN product p ON ks.idproduct = p.idproduct WHERE ks.iduser = '$iduser'";
-		$result = $c->query($sql);
+
+		$sql = "SELECT DISTINCT orderId, tanggalTransaksi, grandTotal FROM history WHERE iduser = '$iduser'";
+		$result = $con->query($sql);
 		$array = array();
 
 		if ($result->num_rows > 0) 
@@ -23,7 +24,7 @@
 				$array[]  = $obj;			
 			}
 
-			$arr = array("result" => "OK", "data" => $array, "message" => "get keranjangsementara");
+			$arr = array("result" => "OK", "data" => $array);
 			echo json_encode($arr);
 		}
 		else
@@ -34,8 +35,7 @@
 	}
 	else
 	{
-		$arr = array("result" => "ERROR", 
-			"message" => "error");
+		$arr = array("result" => "ERROR", "message" => "No Data Found");
 		echo json_encode($arr);
 	}
  ?>

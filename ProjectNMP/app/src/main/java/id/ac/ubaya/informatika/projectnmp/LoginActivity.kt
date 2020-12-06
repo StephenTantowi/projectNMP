@@ -18,6 +18,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        Global.users.clear()
 
         btnLogin.setOnClickListener {
             var q = Volley.newRequestQueue(this)
@@ -38,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
 
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
+                        finish()
                     }
                     else
                     {

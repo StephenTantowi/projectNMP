@@ -1,19 +1,23 @@
 package id.ac.ubaya.informatika.projectnmp
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import kotlinx.android.synthetic.main.fragment_cart.view.*
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.cart_layout.*
+import kotlinx.android.synthetic.main.fragment_cart.*
 import org.json.JSONObject
 
 // TODO: Rename parameter arguments, choose names that match
@@ -53,19 +57,19 @@ class CartFragment : Fragment() {
             url,
             {
                 val obj = JSONObject(it)
-                if(obj.getString("result") == "OK")
-                {
+                if (obj.getString("result") == "OK") {
                     val data = obj.getJSONArray("data")
 
-                    for(i in 0 until data.length())
-                    {
-                        with(data.getJSONObject(i)){
-                            val product = cart(getInt("iduser"),
+                    for (i in 0 until data.length()) {
+                        with(data.getJSONObject(i)) {
+                            val product = cart(
+                                getInt("iduser"),
                                 getInt("idproduct"),
                                 getInt("jumlah"),
                                 getInt("harga"),
                                 getString("gambar"),
-                                getString("judul"))
+                                getString("judul")
+                            )
                             carts.add(product)
                             grandTotal = getInt("GrandTotal")
                         }
@@ -73,17 +77,17 @@ class CartFragment : Fragment() {
                     var gt = v?.findViewById<TextView>(R.id.txtGrandtotal)
                     gt?.text = "Grandtotal : " + grandTotal.toString()
                     updateList()
-                    Log.d("cart",carts.toString())
-                    Log.d("cart",grandTotal.toString())
+                    Log.d("cart", carts.toString())
+                    Log.d("cart", grandTotal.toString())
                 }
             },
             {
                 Log.d("cart", it.message.toString())
             }
         ){
-            override  fun  getParams(): MutableMap<String,String>{
-                var params = HashMap<String,String>()
-                params.put("iduser",Global.users[0].id.toString())
+            override  fun  getParams(): MutableMap<String, String>{
+                var params = HashMap<String, String>()
+                params.put("iduser", Global.users[0].id.toString())
                 return  params
             }
         }
@@ -104,17 +108,38 @@ class CartFragment : Fragment() {
             val url = "http://ubaya.prototipe.net/nmp160418024/addHistory.php"
             var stringRequest = object: StringRequest(com.android.volley.Request.Method.POST, url,
                 {
-                    Log.d("update",it)
-                    onResume()
-                    gt?.text = "Grand Total : 0"
+                    var obj = JSONObject(it)
+                    if(obj.getString("result") == "OK")
+                    {
+
+                        onResume()
+                        gt?.text = "Grand Total : 0"
+
+                        val alert = AlertDialog.Builder(context)
+                        val inflater = layoutInflater
+                        val dialog:View = inflater.inflate(R.layout.custom_dialog,null)
+                        alert.setView(dialog)
+                        alert.show()
+                    }
+                    else
+                    {
+                        val data = obj.getString("message")
+                        Snackbar.make(consfcart, data, Snackbar.LENGTH_LONG).show()
+                    }
+                    Log.d("update", it)
                 },
                 {
-                    Log.d("update",it.message.toString())
+                    Log.d("update", it.message.toString())
                 }
             ){
-                override  fun  getParams(): MutableMap<String,String>{
-                    var params = HashMap<String,String>()
-                    params.put("iduser",Global.users[0].id.toString())
+                override  fun  getParams(): MutableMap<String, String>{
+                    var params = HashMap<String, String>()
+                    params.put("iduser", Global.users[0].id.toString())
+                    if(carts.size != 0)
+                    {
+                        params.put("idp", carts[0].idproduct.toString())
+                    }
+
                     return  params
                 }
             }
@@ -149,4 +174,5 @@ class CartFragment : Fragment() {
         recylerView?.setHasFixedSize(true)
         recylerView?.adapter = cartAdapter(carts, activity!!.applicationContext)
     }
+
 }

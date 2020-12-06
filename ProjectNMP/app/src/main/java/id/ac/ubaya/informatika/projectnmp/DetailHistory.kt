@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_detail_history.*
 import kotlinx.android.synthetic.main.history_layout.*
 import org.json.JSONObject
@@ -20,19 +21,16 @@ class DetailHistory : AppCompatActivity() {
     var histories:ArrayList<HistoryDetail> = ArrayList()
     var v: View?= null
 
-    override fun onCreateView(
-        parent: View?,
-        name: String,
-        context: Context,
-        attrs: AttributeSet
-    ): View? {
-        return super.onCreateView(parent, name, context, attrs)
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_history)
 
+        setSupportActionBar(toolbar3)
+        supportActionBar?.title = "NMP Online Shop"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
 
         var iduser = intent.getIntExtra("idUser",0)
         var orderid = intent.getStringExtra("orderId")
@@ -92,5 +90,9 @@ class DetailHistory : AppCompatActivity() {
         recylerView?.layoutManager = lm
         recylerView?.setHasFixedSize(true)
         recylerView?.adapter = HistoryDetailAdapter(histories, this)
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

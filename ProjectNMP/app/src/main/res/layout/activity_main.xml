@@ -11,15 +11,23 @@
         android:id="@+id/appbar"
 
         android:layout_width="match_parent"
-        android:layout_height="56dp">
+        android:layout_height="65dp">
 
-        <TextView
-            android:id="@+id/txtTitle"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Judul App"
-            android:textAppearance="@style/pagetitleexpanded"
-            android:textSize="24sp" />
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/pagetitleexpanded"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+
+            app:toolbarId="@+id/toolbar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"></androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -43,8 +51,10 @@
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="@id/bottomNav"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
             </androidx.viewpager2.widget.ViewPager2>
 

@@ -14,6 +14,11 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        setSupportActionBar(toolbar2)
+        supportActionBar?.title = "NMP Online Shop"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+
 
         var idproduk = intent.getIntExtra("idproduct",0)
         txtNamaP.text = intent.getStringExtra("nama").toString()
@@ -23,6 +28,8 @@ class DetailActivity : AppCompatActivity() {
         val url = intent.getStringExtra("gambar").toString()
         Picasso.get().load(url).into(imageView)
         var iduser = Global.users[0].id
+
+
 
         btnAdd.setOnClickListener {
             var q = Volley.newRequestQueue(this)
@@ -45,5 +52,9 @@ class DetailActivity : AppCompatActivity() {
             }
             q.add(stringRequest)
         }
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

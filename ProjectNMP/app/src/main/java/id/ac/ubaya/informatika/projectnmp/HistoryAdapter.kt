@@ -33,6 +33,8 @@ class HistoryAdapter(val histories:ArrayList<History>,val ctx: Context): Recycle
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.putExtra("orderId",histories[position].orderid)
             intent.putExtra("idUser",histories[position].iduser)
+            intent.putExtra("tanggal",histories[position].tanggal)
+            intent.putExtra("grandtotal",histories[position].grandtotal)
             ctx.startActivity(intent)
         }
     }

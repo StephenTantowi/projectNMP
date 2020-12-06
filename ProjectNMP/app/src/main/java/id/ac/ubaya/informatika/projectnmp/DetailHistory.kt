@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import kotlinx.android.synthetic.main.activity_detail_history.*
 import kotlinx.android.synthetic.main.history_layout.*
 import org.json.JSONObject
+import kotlin.math.tan
 
 class DetailHistory : AppCompatActivity() {
     var histories:ArrayList<HistoryDetail> = ArrayList()
@@ -34,6 +36,12 @@ class DetailHistory : AppCompatActivity() {
 
         var iduser = intent.getIntExtra("idUser",0)
         var orderid = intent.getStringExtra("orderId")
+        var tanggal = intent.getStringExtra("tanggal")
+        var grandtotal = intent.getIntExtra("grandtotal", 0)
+
+        txtTanggal.text = tanggal
+        txtOrderID.text = orderid
+        txtGrandtotal.text = "Grandtotal : $grandtotal"
 
         var q = Volley.newRequestQueue(this)
         val url = "http://ubaya.prototipe.net/nmp160418024/getHistoryUserDetail.php"

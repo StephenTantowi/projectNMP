@@ -84,5 +84,9 @@ class SignUpActivity : AppCompatActivity() {
                 q.add(stringRequest)
 
         }
+        btnBackToLogin.setOnClickListener {
+            val intent = Intent(this,LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

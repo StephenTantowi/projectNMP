@@ -26,7 +26,7 @@ class HistoryAdapter(val histories:ArrayList<History>,val ctx: Context): Recycle
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         holder.v.txtOrderID.text = histories[position].orderid
         holder.v.txtTanggalTransaksi.text = histories[position].tanggal
-        holder.v.txtGT.text = histories[position].grandtotal.toString()
+        holder.v.txtGT.text = "Rp."+histories[position].grandtotal.toString()
 
         holder.v.btnDetail.setOnClickListener {
             val intent = Intent(ctx,DetailHistory::class.java)

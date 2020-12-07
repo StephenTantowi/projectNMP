@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:text="Grandtotal : 0"
+            android:textColor="@color/design_default_color_on_secondary"
             app:layout_constraintBottom_toTopOf="@+id/btnCheckout"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

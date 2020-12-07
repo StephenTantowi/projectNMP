@@ -23,7 +23,7 @@ class DetailActivity : AppCompatActivity() {
         var idproduk = intent.getIntExtra("idproduct",0)
         txtNamaP.text = intent.getStringExtra("nama").toString()
         txtDetail.text = intent.getStringExtra("deskripsi").toString()
-        txtHarga.text = intent.getIntExtra("harga",0).toString()
+        txtHarga.text = "Rp."+intent.getIntExtra("harga",0).toString()
         txtKategori.text = intent.getStringExtra("kategori").toString()
         val url = intent.getStringExtra("gambar").toString()
         Picasso.get().load(url).into(imageView)

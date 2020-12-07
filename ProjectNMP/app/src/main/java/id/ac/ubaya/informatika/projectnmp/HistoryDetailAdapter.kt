@@ -25,8 +25,8 @@ class HistoryDetailAdapter(val historiedetails:ArrayList<HistoryDetail>,val ctx:
         val url = historiedetails[position].gambar
         Picasso.get().load(url).into(holder.v.imgProduct)
         holder.v.txtNamaP.text = historiedetails[position].namaproduk
-        holder.v.txtHarga.text = historiedetails[position].harga.toString()
-        holder.v.txtJumlah.text = historiedetails[position].jumlah.toString()
-        holder.v.txtTotalHarga.text = historiedetails[position].totalharga.toString()
+        holder.v.txtHarga.text = "Rp."+historiedetails[position].harga.toString()
+        holder.v.txtJumlah.text = "x "+historiedetails[position].jumlah.toString()
+        holder.v.txtTotalHarga.text = "Rp."+historiedetails[position].totalharga.toString()
     }
 }

@@ -39,7 +39,7 @@ class DetailHistory : AppCompatActivity() {
 
         txtTanggal.text = tanggal
         txtOrderID.text = orderid
-        txtGrandtotal.text = "Grandtotal : $grandtotal"
+        txtGrandtotal.text = "Grandtotal : Rp.$grandtotal"
 
         var q = Volley.newRequestQueue(this)
         val url = "http://ubaya.prototipe.net/nmp160418024/getHistoryUserDetail.php"

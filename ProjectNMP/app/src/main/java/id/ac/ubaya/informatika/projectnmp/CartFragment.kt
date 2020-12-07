@@ -91,7 +91,7 @@ class CartFragment : Fragment() {
                                         val data = obj.getInt("GrandTotal")
 
                                         var gt = v?.findViewById<TextView>(R.id.txtGrandtotal)
-                                        gt?.text = "Grandtotal : " + data.toString()
+                                        gt?.text = "Grandtotal : Rp." + data.toString()
                                     }
                                     else if(obj.getString("result") == "UpdateList")
                                     {
@@ -103,7 +103,7 @@ class CartFragment : Fragment() {
                                         val data = obj.getInt("GrandTotal")
 
                                         var gt = v?.findViewById<TextView>(R.id.txtGrandtotal)
-                                        gt?.text = "Grandtotal : " + data.toString()
+                                        gt?.text = "Grandtotal : Rp." + data.toString()
                                         carts.clear()
                                         updateList()
                                     }
@@ -163,7 +163,7 @@ class CartFragment : Fragment() {
                     {
 
                         onResume()
-                        gt?.text = "Grand Total : 0"
+                        gt?.text = "Grand Total : Rp.0"
 
                         val alert = AlertDialog.Builder(context)
                         val inflater = layoutInflater

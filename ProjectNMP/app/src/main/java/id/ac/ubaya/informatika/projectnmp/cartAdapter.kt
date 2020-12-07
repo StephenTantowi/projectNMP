@@ -29,7 +29,7 @@ class cartAdapter(val carts:ArrayList<cart>,val ctx: Context): RecyclerView.Adap
         val url = carts[position].gambar
         Picasso.get().load(url).into(holder.v.imgProduct)
         holder.v.txtNamaP.text = carts[position].nama
-        holder.v.txtHarga.text = carts[position].harga.toString()
+        holder.v.txtHarga.text = "Rp."+carts[position].harga.toString()
         holder.v.txtQuanatity.text = carts[position].jumlah.toString()
 
         holder.v.btnMinus.setOnClickListener {

@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         val hView = navView.getHeaderView(0)
         val textViewName = hView.findViewById(R.id.txtNamaUser) as TextView
         val textViewEmail = hView.findViewById(R.id.txtEmailUser) as TextView
-        textViewEmail.text = Global.users[0].email
-        textViewName.text = Global.users[0].nama
+        textViewEmail.text = "Email: "+Global.users[0].email
+        textViewName.text = "Nama: "+Global.users[0].nama
 
 
         setSupportActionBar(toolbar)

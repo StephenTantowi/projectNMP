@@ -5,12 +5,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.cart_layout.view.*
 import kotlinx.android.synthetic.main.fragment_cart.view.*
+import org.json.JSONObject
+import kotlin.math.log
 
 
 class cartAdapter(val carts:ArrayList<cart>,val ctx: Context): RecyclerView.Adapter<cartAdapter.CartViewHolder>() {
@@ -34,12 +37,18 @@ class cartAdapter(val carts:ArrayList<cart>,val ctx: Context): RecyclerView.Adap
             val url = "http://ubaya.prototipe.net/nmp160418024/updateKeranjangSementara.php"
             var stringRequest = object: StringRequest(com.android.volley.Request.Method.POST, url,
                 {
-                    Log.d("update",it)
+                    Log.d("update", it)
                     carts[position].jumlah--
                     holder.v.txtQuanatity.text = carts[position].jumlah.toString()
+
+                    if(carts[position].jumlah == 0)
+                    {
+                        carts.removeAt(position)
+                        this@cartAdapter.notifyDataSetChanged()
+                    }
                 },
                 {
-                    Log.d("update",it.message.toString())
+                    Log.d("update", it.message.toString())
                 }
             ){
                 override  fun  getParams(): MutableMap<String,String>{
@@ -77,7 +86,6 @@ class cartAdapter(val carts:ArrayList<cart>,val ctx: Context): RecyclerView.Adap
         }
 
     }
-
     override fun getItemCount(): Int {
         return  carts.size
     }

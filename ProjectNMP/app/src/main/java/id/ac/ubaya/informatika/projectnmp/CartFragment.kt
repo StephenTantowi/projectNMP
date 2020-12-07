@@ -2,12 +2,14 @@ package id.ac.ubaya.informatika.projectnmp
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.cart_layout.*
 import kotlinx.android.synthetic.main.fragment_cart.*
 import org.json.JSONObject
+import kotlin.math.log
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,8 +77,55 @@ class CartFragment : Fragment() {
                             grandTotal = getInt("GrandTotal")
                         }
                     }
-                    var gt = v?.findViewById<TextView>(R.id.txtGrandtotal)
-                    gt?.text = "Grandtotal : " + grandTotal.toString()
+                    val timer = object : CountDownTimer(1000, 1000) {
+                        override fun onTick(time: Long) {
+                            val q = Volley.newRequestQueue(activity)
+                            val url =
+                                "http://ubaya.prototipe.net/nmp160418024/getKeranjangSementara.php"
+                            var stringRequest = object : StringRequest(
+                                Request.Method.POST,
+                                url,
+                                {
+                                    val obj = JSONObject(it)
+                                    if (obj.getString("result") == "OK") {
+                                        val data = obj.getInt("GrandTotal")
+
+                                        var gt = v?.findViewById<TextView>(R.id.txtGrandtotal)
+                                        gt?.text = "Grandtotal : " + data.toString()
+                                    }
+                                    else if(obj.getString("result") == "UpdateList")
+                                    {
+                                        carts.clear()
+                                        updateList()
+                                    }
+                                    else
+                                    {
+                                        val data = obj.getInt("GrandTotal")
+
+                                        var gt = v?.findViewById<TextView>(R.id.txtGrandtotal)
+                                        gt?.text = "Grandtotal : " + data.toString()
+                                        carts.clear()
+                                        updateList()
+                                    }
+                                },
+                                {
+                                    Log.d("cart", it.message.toString())
+                                }
+                            ) {
+                                override fun getParams(): MutableMap<String, String> {
+                                    var params = HashMap<String, String>()
+                                    params.put("iduser", Global.users[0].id.toString())
+                                    return params
+                                }
+                            }
+                            q.add(stringRequest)
+                        }
+
+                        override fun onFinish() {
+                            start()
+                        }
+                    }
+                    timer.start()
                     updateList()
                     Log.d("cart", carts.toString())
                     Log.d("cart", grandTotal.toString())

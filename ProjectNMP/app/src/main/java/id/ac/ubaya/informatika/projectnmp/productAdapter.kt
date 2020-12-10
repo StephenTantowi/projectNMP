@@ -25,6 +25,7 @@ class productAdapter(val products:ArrayList<Product>,val ctx:Context): RecyclerV
         Picasso.get().load(url).into(holder.v.imgProduct)
         holder.v.txtNamaP.text = products[position].nama
         holder.v.txtHarga.text = "Rp."+products[position].harga.toString()
+        holder.v.txtInform.text = products[position].deskripsi
 
         holder.v.imgProduct.setOnClickListener {
             val intent = Intent(ctx,DetailActivity::class.java)

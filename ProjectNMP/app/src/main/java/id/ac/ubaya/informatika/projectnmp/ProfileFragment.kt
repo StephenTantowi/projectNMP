@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import org.json.JSONObject
 
 // TODO: Rename parameter arguments, choose names that match
@@ -53,8 +55,7 @@ class ProfileFragment : Fragment() {
         nama?.setText(Global.users[0].nama)
         email?.setText(Global.users[0].email)
         button?.setOnClickListener {
-//            if(newPass == repeatPass)
-//            {
+
                 var q = Volley.newRequestQueue(context)
                 val url = "http://ubaya.prototipe.net/nmp160418024/updateUser.php"
                 var stringRequest = object: StringRequest(com.android.volley.Request.Method.POST, url,
@@ -62,6 +63,11 @@ class ProfileFragment : Fragment() {
                         Log.d("updateuser",it)
                         var obj = JSONObject(it)
                         if(obj.getString("result") == "OK")
+                        {
+                            val data = obj.getString("message")
+                            Snackbar.make(view!!.rootView, data, Snackbar.LENGTH_LONG).show()
+                        }
+                        else
                         {
                             val data = obj.getString("message")
                             Snackbar.make(view!!.rootView, data, Snackbar.LENGTH_LONG).show()
@@ -77,12 +83,14 @@ class ProfileFragment : Fragment() {
                         params.put("nama", nama?.text.toString())
                         params.put("oldPassword", oldPass?.text.toString())
                         params.put("newPassword", newPass?.text.toString())
+                        params.put("repeatPassword",repeatPass?.text.toString())
                         return  params
                     }
                 }
                 q.add(stringRequest)
-            }
-        //}
+
+        }
+
         return v
     }
 

@@ -16,6 +16,10 @@
 		$result = $c->query($sql);
 		$array = array();
 
+		$hasil = $c->query($sql);
+		$hasilobj = mysqli_fetch_object($hasil);
+		$gt = $hasilobj->GrandTotal;
+
 		if ($result->num_rows > 0) 
 		{
 			while ($obj = $result->fetch_object())
@@ -23,7 +27,7 @@
 				$array[]  = $obj;			
 			}
 
-			$arr = array("result" => "OK", "data" => $array, "message" => "get keranjangsementara");
+			$arr = array("result" => "OK", "data" => $array, "message" => "get keranjangsementara", "GrandTotal" => $gt);
 			echo json_encode($arr);
 		}
 		else

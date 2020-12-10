@@ -11,7 +11,7 @@
 	}
 
 	//Cek data yang dikirim
-	if($_POST['iduser']) 
+	if($_POST['iduser'] && $_POST['idp']) 
 	{
 		$iduser = $_POST['iduser'];
 

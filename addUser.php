@@ -9,7 +9,7 @@
 		echo json_encode($arr);
 		die();
 	}
-   if(trim($_POST['email']) == "" && trim($_POST['password']) == "" && trim($_POST['nama']) == "" && trim($_POST['ulangipassword']) == "") 
+   if(trim($_POST['email']) != "" && trim($_POST['password']) != "" && trim($_POST['nama']) != "" && trim($_POST['ulangipassword']) != "") 
    {
 		$email = $_POST['email'];
 		$password = $_POST['password'];
@@ -25,18 +25,18 @@
 
 			if(is_null($cekEmail))
 			{
-				$arr = array("result" => "ERROR", 
-					"message" => "email telah digunakan");
-				echo json_encode($arr);
-			}
-			else
-			{
 				$sql2 = "INSERT INTO user(email,password, nama) values ('$email', '$password', '$nama')";
 				$c->query($sql2);
 				$arr2 = array("result" => "OK", 
 					"sql"	=> $sql2,
 					"message" => "user added");
 				echo json_encode($arr2);
+			}
+			else
+			{
+				$arr = array("result" => "ERROR", 
+					"message" => "email telah digunakan");
+				echo json_encode($arr);
 			}
 		}
 		else
